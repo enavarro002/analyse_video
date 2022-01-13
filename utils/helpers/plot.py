@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 import numpy as np
-from copy import deepcopy
+from random import randint
 
 
 def plot_loss_acc(history):
@@ -78,7 +78,7 @@ def plot_multiclass_heatmap(y_test, y_predict, labels, figsize=(16, 14)):
     plt.show()
 
 
-def plt_box(plt, coords=None, rect=None ,label="", color="yellow", linewidth=2):
+def plot_box(plt, coords=None, rect=None ,label="", color="yellow", linewidth=2):
     """
     == Input ==
 
@@ -135,3 +135,50 @@ def draw_box_in_matrix(img, box, color=(255, 191, 0), linewidth=4):
 
     img[y1 - l: y2 + l, x1 - l: x1 + l] = color
     img[y1 - l: y2 + l, x2 - l: x2 + l] = color
+
+
+def generate_rdm_boxes_from_box(
+    rect, delta_move, delta_taille, w_frame, h_frame, nb_box=30
+):
+    """
+    Génère de nouveau rectangle aléatoirement autour du rectangle rect
+
+    Args:
+    - rect         : [ x coin haut gauche,
+                       y coint haut gauche,
+                       largeur,
+                       hauteur  ]
+    - delta_move   : déplacement maximun en translation normalisé par rapport à la taille du rect (max = 1)
+    - delta_taille : redimensionnement maximal normalisé par rapport à la taille du rect (max = 1)
+    - w_lim        : image width
+    - h_lim        : image height
+    - nb_box       : nombre de nouveau rectangle
+    """
+
+    x1, y1, w, h = rect
+
+    delta_taille = min(delta_taille, 1)
+    delta_move = min(delta_move, 1)
+
+    w_delta = int(w * delta_taille)
+    h_delta = int(h * delta_taille)
+    x_delta = int(w * delta_move) + int(w_delta/2)
+    y_delta = int(h * delta_move) + int(h_delta/2)
+
+    rdm_bboxes = []
+
+    while len(rdm_bboxes) < nb_box:
+        n_x1 = x1 + randint(-x_delta, x_delta)
+        n_y1 = y1 + randint(-y_delta, y_delta)
+        n_w = min(w + randint(-w_delta, w_delta), w_frame-n_x1)
+        n_h = min(h + randint(-h_delta, h_delta), h_frame-n_y1)
+
+        if (
+            n_w >= w * (1 - delta_taille)
+            and n_h >= h * (1 - delta_taille)
+            and n_x1 > 0
+            and n_y1 > 0
+        ):
+            rdm_bboxes.append((n_x1, n_y1, n_w, n_h))
+
+    return rdm_bboxes

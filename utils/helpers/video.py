@@ -1,15 +1,5 @@
-
-def get_num_first_frame_with_coord(list_bbox_path):
-    boxes = get_all_true_box(list_bbox_path)
-    i = 0
-    first = boxes[i]
-    while first is None:
-        i += 1
-        first = boxes[i]
-    return i, first
 import cv2
 import sys
-
 def get_all_true_box(list_bbox_path):
     boxes = []
     with open(list_bbox_path) as fp:
@@ -29,6 +19,16 @@ def get_all_true_box(list_bbox_path):
                 h = (int)(elts[5])
                 boxes.append((x, y, w, h))
     return boxes
+
+
+def get_num_first_frame_with_coord(list_bbox_path):
+    boxes = get_all_true_box(list_bbox_path)
+    i = 0
+    first = boxes[i]
+    while first is None:
+        i += 1
+        first = boxes[i]
+    return i, first
 
 
 def get_frame_from_number(video_path, frame_nb):

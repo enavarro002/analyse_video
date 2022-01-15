@@ -1,4 +1,4 @@
-from keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.applications.vgg16 import preprocess_input
 from cv2 import cvtColor, COLOR_BGR2RGB, resize
 import utils.helpers.constants as path
 
@@ -9,7 +9,7 @@ def preprocess_image(img) :
     return preprocess_input(img_resize)
 
     
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.utils.np_utils import to_categorical
 def get_datasets(train=True, val=True, test=True):
     generator = ImageDataGenerator(preprocessing_function=preprocess_input)

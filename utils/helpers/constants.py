@@ -1,0 +1,9 @@
+# __original_dataset_path__ = "./DB/"
+__original_dataset_path__ = "./data/DB/"
+__train_path__ = __original_dataset_path__+'train/'
+__test_path__ = __original_dataset_path__+'test/'
+__val_path__ = __original_dataset_path__+'validation/'
+# __video_path__ = 'VIDEOS'
+# __bboxes_path__ = 'GT'
+__bboxes_path__ = './data/GT'
+__video_path__ = './data/VIDEOS'

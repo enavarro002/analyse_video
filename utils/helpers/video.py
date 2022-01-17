@@ -23,8 +23,8 @@ def get_all_true_box(list_bbox_path):
 
 
 def get_num_first_frame_with_coord(list_bbox_path):
-    """Récupération du numéro de la première frame de la vidéo contenant l objet souhaite"""
-    """ainsi que des coordonnées de la box englobante de cet objet"""
+    """Récupération du numéro de la première frame de la vidéo contenant l'objet souhaité
+    ainsi que des coordonnées de la box englobante de cet objet"""
 
     boxes = get_all_true_box(list_bbox_path)
     i = 0

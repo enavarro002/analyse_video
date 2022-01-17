@@ -51,11 +51,7 @@ def plot_multiclass_heatmap(y_test, y_predict, labels, figsize=(16, 14)):
 
     cm = confusion_matrix(y_true, y_pred, normalize="true")
 
-    ## Get Class Labels
-    # labels = le.classes_
-    class_names = labels
-
-    class_names = list(class_names)
+    class_names = list(labels)
 
     # Plot confusion matrix in a beautiful manner
     fig = plt.figure(figsize=figsize)
@@ -82,19 +78,18 @@ def plot_multiclass_heatmap(y_test, y_predict, labels, figsize=(16, 14)):
 def plot_box(plt, coords=None, rect=None ,label="", color="yellow", linewidth=2):
     """
     == Input ==
-
-    plt   : matplotlib.pyplot object
-    label : string containing the object class name
-    coords: [
-        top left corner x coordinate
-        top left corner y coordinate
-        bottom right corner x coordinate
+    - plt   : matplotlib.pyplot object
+    - label : object class name
+    - coords: [
+        top left corner x coordinate,
+        top left corner y coordinate,
+        bottom right corner x coordinate,
         bottom right corner y coordinate
     ]
-    rect: [
-        top left corner x coordinate
-        top left corner y coordinate
-        width
+    - rect: [
+        top left corner x coordinate,
+        top left corner y coordinate,
+        width,
         height
     ]
     """
@@ -120,9 +115,9 @@ def plot_box(plt, coords=None, rect=None ,label="", color="yellow", linewidth=2)
 
 def draw_box_in_matrix(img, box, color=(255, 191, 0), linewidth=4):
     """
-    Dessine un rectangle au coordonner de box
-    Modifie l'objet en paramètre 
-    Utiliser deepcopy avant si on veut garder l'objet sans modification
+    Dessine un rectangle au coordonner de box\n
+    Modifie l'objet en paramètre\n
+    Rq: Utiliser deepcopy avant si on veut garder l'objet sans modification
     """
 
     l = max(int(linewidth/2),1)

@@ -3,7 +3,9 @@ from cv2 import cvtColor, COLOR_BGR2RGB, resize
 import utils.helpers.constants as path
 
 def preprocess_image(img) : 
-    
+    """Prétraitement de l image"""
+    """ - La convertit  en couleur space COLOR_BGR2RGB"""
+    """ - Lui donne une taille voulue"""
     img_rgb = cvtColor(img, COLOR_BGR2RGB)
     img_resize = resize(img_rgb, dsize=(227,227))
     return preprocess_input(img_resize)
@@ -12,6 +14,7 @@ def preprocess_image(img) :
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.utils.np_utils import to_categorical
 def get_datasets(train=True, val=True, test=True):
+    """Récupération des images du(des) dataset(s) train, val, et test au choix"""
     generator = ImageDataGenerator(preprocessing_function=preprocess_input)
 
     resp = []
@@ -62,6 +65,7 @@ def get_datasets(train=True, val=True, test=True):
 
 import os
 def get_labels():
+    """Récupération des labels des différentes classes"""
     class_labels = os.listdir(path.__train_path__)
     return class_labels, len(class_labels)
 
@@ -69,6 +73,7 @@ from random import choice
 from cv2 import imread
 import numpy as np
 def get_random_test_img(nb_img):
+    """Récupération d un nombre choisi d images de test aléatoires"""
     img_test = []
     for _ in range(nb_img):
         folder_name = choice(os.listdir(path.__test_path__))

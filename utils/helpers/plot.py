@@ -44,6 +44,7 @@ def plot_loss_acc(history):
 
 
 def plot_multiclass_heatmap(y_test, y_predict, labels, figsize=(16, 14)):
+    """Affichage de la matrice de confusion"""
 
     y_pred = np.argmax(y_predict, axis=-1)
     y_true = np.argmax(y_test, axis=-1)

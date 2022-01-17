@@ -1,6 +1,7 @@
 import cv2
 import sys
 def get_all_true_box(list_bbox_path):
+    """Récupération des coordonnées (x,y,w,h) des boxes réelles de chaque frame de la vidéo"""
     boxes = []
     with open(list_bbox_path) as fp:
         lines = fp.readlines()
@@ -22,6 +23,9 @@ def get_all_true_box(list_bbox_path):
 
 
 def get_num_first_frame_with_coord(list_bbox_path):
+    """Récupération du numéro de la première frame de la vidéo contenant l objet souhaite"""
+    """ainsi que des coordonnées de la box englobante de cet objet"""
+
     boxes = get_all_true_box(list_bbox_path)
     i = 0
     first = boxes[i]
@@ -32,6 +36,7 @@ def get_num_first_frame_with_coord(list_bbox_path):
 
 
 def get_frame_from_number(video_path, frame_nb):
+    """Récupération de la frame numéro frame_nb de la vidéo"""
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
         print("ERROR: unable to read video:", video_path)
@@ -46,11 +51,13 @@ def get_frame_from_number(video_path, frame_nb):
 
 
 def get_nb_frames_video(video_path):
+    """Récupération du nombre de frames d'une vidéo"""
     cap = cv2.VideoCapture(video_path)
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     return length
 
 def compute_IOU(box1, box2) : 
+    """Calcul de l'IOU entre deux box"""
     bb1_x1 = box1[0]
     bb1_y1 = box1[1]
     bb1_x2 = box1[0] + box1[2]

@@ -49,3 +49,37 @@ def get_nb_frames_video(video_path):
     cap = cv2.VideoCapture(video_path)
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     return length
+
+def compute_IOU(box1, box2) : 
+    bb1_x1 = box1[0]
+    bb1_y1 = box1[1]
+    bb1_x2 = box1[0] + box1[2]
+    bb1_y2 = box1[1] + box1[3]
+
+    bb2_x1 = box2[0]
+    bb2_y1 = box2[1]
+    bb2_x2 = box2[0] + box2[2]
+    bb2_y2 = box2[1] + box2[3]
+
+    bb1 = [bb1_x1, bb1_y1, bb1_x2, bb1_y2]
+    bb2 = [bb2_x1, bb2_y1, bb2_x2, bb2_y2]
+
+    # bb1 va être représenté par 0 et bb2 par 1
+    corresp = {0 : bb1, 1 : bb2}
+
+    left_one = 0 if bb1_x1 <= bb2_x1 else 1
+    right_one = 0 if bb1_x2 >= bb2_x2 else 1
+    top_one = 0 if bb1_y1 <= bb2_y1 else 1
+    bottom_one = 0 if bb1_y2 >= bb2_y2 else 1
+
+    w_inter = corresp[1-right_one][2] - corresp[1-left_one][0]
+    h_inter = corresp[1-bottom_one][3] - corresp[1-top_one][1]
+
+    # cas où les boîtes ne se touchent pas 
+    if(w_inter<0 or h_inter<0) : 
+        return 0
+
+    inter_area = w_inter*h_inter
+    union_area = box1[2] * box1[3] + box2[2]* box2[3] - inter_area
+
+    return (inter_area/union_area)

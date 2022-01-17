@@ -1,5 +1,12 @@
 PR325 Vidéo_part1.pdf
 note.md
+test_tracker.py
+
 /data
 /models
 /patches
+
+/utils/__pycache__
+/utils/helpers/__pycache__
+
+.vscode
